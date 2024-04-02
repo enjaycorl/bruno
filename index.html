@@ -1,15 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>100 Times "I Love You"</title>
+    <title>Love</title>
+    <style>
+        body {
+            animation: backgroundAnimation 5s infinite alternate;
+            background: linear-gradient(45deg, pink, violet); /* Set pink-violet gradient background */
+        }
+
+        @keyframes backgroundAnimation {
+            0% {
+                background: linear-gradient(45deg, pink, violet);
+            }
+            100% {
+                background: linear-gradient(45deg, violet, pink);
+            }
+        }
+
+        #loveMessageContainer {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; /* Set width of container */
+            height: 200px; /* Set height of container */
+            overflow: auto; /* Enable scrolling */
+            padding: 10px; /* Add padding */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add box shadow */
+        }
+
+        #loveMessage {
+            font-size: 24px;
+            color: white;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+        }
+
+        #developedBy {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+    <script>
+        let count = 0;
+
+        function displayLoveMessage() {
+            if (count < 100) {
+                document.getElementById("loveMessage").innerHTML += "I love you💖<br>";
+                count++;
+                setTimeout(displayLoveMessage, 1000);
+            }
+        }
+
+        window.onload = function() {
+            displayLoveMessage();
+        };
+    </script>
 </head>
 <body>
-    <h1>I Love You 💚</h1>
-    <script>
-        // Using a loop to print "I Love You" 100 times
-        for (let i = 0; i < 100; i++) {
-            document.write("<p>I Love You 💚</p>");
-        }
-    </script>
+    <div id="loveMessageContainer">
+        <div id="loveMessage"></div>
+    </div>
+    <footer>© 2023-2024</footer>
+    <div id="developedBy">developed by Jaylorence U Opiar💚</div>
 </body>
-</html>
+    </html>
+    
