@@ -1,80 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Love</title>
-    <style>
-        body {
-            animation: backgroundAnimation 5s infinite alternate;
-            background: linear-gradient(45deg, pink, violet); /* Set pink-violet gradient background */
-        }
+import os
+import subprocess
+import sys
 
-        @keyframes backgroundAnimation {
-            0% {
-                background: linear-gradient(45deg, pink, violet);
-            }
-            100% {
-                background: linear-gradient(45deg, violet, pink);
-            }
-        }
+def install_dependencies():
+    """Install required packages"""
+    subprocess.run(["pkg", "update", "-y"], check=True)
+    subprocess.run(["pkg", "install", "-y", "wget", "unzip", "openssl", "binutils", "python"], check=True)
 
-        #loveMessageContainer {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px; /* Set width of container */
-            height: 200px; /* Set height of container */
-            overflow: auto; /* Enable scrolling */
-            padding: 10px; /* Add padding */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add box shadow */
-        }
+def download_server():
+    """Download Bedrock Server"""
+    url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.21.72.zip"
+    if not os.path.exists("bedrock-server-1.21.72.zip"):
+        subprocess.run(["wget", url], check=True)
 
-        #loveMessage {
-            font-size: 24px;
-            color: white;
-        }
+def extract_files():
+    """Extract server files"""
+    if not os.path.exists("bedrock_server"):
+        subprocess.run(["unzip", "bedrock-server-1.21.72.zip"], check=True)
 
-        footer {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-        }
+def configure_server():
+    """Create basic configuration"""
+    if not os.path.exists("server.properties"):
+        config = """server-name=Termux Server
+gamemode=survival
+difficulty=easy
+allow-cheats=false
+max-players=10
+server-port=19132
+server-portv6=19133"""
+        with open("server.properties", "w") as f:
+            f.write(config)
 
-        #developedBy {
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: white;
-        }
-    </style>
-    <script>
-        let count = 0;
+def fix_libraries():
+    """Fix library dependencies"""
+    lib_path = "/data/data/com.termux/files/usr/lib"
+    if not os.path.exists("libcurl.so.4"):
+        os.symlink(f"{lib_path}/libcurl.so", "libcurl.so.4")
 
-        function displayLoveMessage() {
-            if (count < 100) {
-                document.getElementById("loveMessage").innerHTML += "I love you💖<br>";
-                count++;
-                setTimeout(displayLoveMessage, 1000);
-            }
-        }
+def start_server():
+    """Start the Minecraft server"""
+    os.environ["LD_LIBRARY_PATH"] = "."
+    subprocess.run(["./bedrock_server"], check=True)
 
-        window.onload = function() {
-            displayLoveMessage();
-        };
-    </script>
-</head>
-<body>
-    <div id="loveMessageContainer">
-        <div id="loveMessage"></div>
-    </div>
-    <footer>© 2023-2024</footer>
-    <div id="developedBy">developed by Jaylorence U Opiar💚</div>
-</body>
-    </html>
-    
+def main():
+    try:
+        print("Setting up Minecraft Bedrock Server 1.21.72")
+        install_dependencies()
+        download_server()
+        extract_files()
+        os.chdir("bedrock_server")
+        configure_server()
+        fix_libraries()
+        print("Starting server...")
+        start_server()
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
