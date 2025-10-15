@@ -92,6 +92,8 @@
             letter-spacing: 2px;
             margin: 15px 0;
             border: 1px dashed #4CAF50;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
         .owner-profile {
@@ -223,6 +225,95 @@
             pointer-events: none;
         }
 
+        /* Rules Section Styles */
+        .rules-section {
+            margin: 50px 0;
+        }
+
+        .rules-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #8BC34A;
+        }
+
+        .rules-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .rules-list {
+            list-style-type: none;
+            counter-reset: rule-counter;
+        }
+
+        .rule-item {
+            background: rgba(30, 40, 50, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #8BC34A;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .rule-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .rule-item::before {
+            counter-increment: rule-counter;
+            content: counter(rule-counter);
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #8BC34A;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(139, 195, 74, 0.5);
+        }
+
+        .rule-title {
+            color: #8BC34A;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-system {
+            background: rgba(255, 152, 0, 0.1);
+            border-left: 4px solid #FF9800;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .warning-system h3 {
+            color: #FF9800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+            font-style: italic;
+            color: #a0a0a0;
+        }
+
         @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
@@ -234,6 +325,13 @@
             
             .features {
                 grid-template-columns: 1fr;
+            }
+            
+            .rule-item::before {
+                left: -10px;
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -277,6 +375,60 @@
                         <p>Our realm is running on:</p>
                         <div class="version-badge">Minecraft 1.21.111</div>
                         <p>Make sure your game is updated to this version to join.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rules Section -->
+        <div class="rules-section">
+            <h2 class="rules-header">
+                <i class="fas fa-gavel"></i> Realm Rules
+            </h2>
+            
+            <div class="minecraft-border">
+                <div class="rules-container">
+                    <p style="margin-bottom: 20px; text-align: center;">To ensure a positive experience for all players, please follow these rules:</p>
+                    
+                    <ol class="rules-list">
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-ban"></i> No Griefing</h3>
+                            <p>Respect other players' builds, especially the town and beautiful structures. Destroying or modifying others' creations without permission is strictly prohibited.</p>
+                        </li>
+                        
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-balance-scale"></i> No Duping</h3>
+                            <p>Be an honorable person and play fair. Using duplication glitches or exploits to gain an unfair advantage is not allowed.</p>
+                        </li>
+                        
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-user-shield"></i> Respectful Behavior</h3>
+                            <p>No sexualizing or harassment of other players. Friendly trash talk is acceptable, but be mindful of what you say, especially regarding women in our community. If you encounter inappropriate behavior, report it to any admin.</p>
+                        </li>
+                        
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-fist-raised"></i> Dispute Resolution</h3>
+                            <p>Settle disputes mainly through PvP. Players who engage in trash talking will be considered entertainment - we won't intervene, we'll just watch and enjoy.</p>
+                        </li>
+                        
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-exclamation-triangle"></i> Consequences for Actions</h3>
+                            <p>Every inappropriate action has consequences, whether from an admin or fellow players. Think before you act.</p>
+                        </li>
+                        
+                        <li class="rule-item">
+                            <h3 class="rule-title"><i class="fas fa-server"></i> No Server Hopping</h3>
+                            <p>Avoid server hopping to prevent inactivity in our realm. While multi-server play is technically possible, we recommend against it. Players who server hop excessively may be removed from the realm.</p>
+                        </li>
+                    </ol>
+                    
+                    <div class="warning-system">
+                        <h3><i class="fas fa-exclamation-circle"></i> Warning System</h3>
+                        <p>We operate on a warning system. If you receive 5 warnings, you will be permanently banned from the realm. The severity of consequences depends on the offense and is at the discretion of the admins.</p>
+                    </div>
+                    
+                    <div class="signature">
+                        <p>- Yours truly, Yhezeqel</p>
                     </div>
                 </div>
             </div>
@@ -337,6 +489,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Add animation to feature cards on scroll
             const featureCards = document.querySelectorAll('.feature-card');
+            const ruleItems = document.querySelectorAll('.rule-item');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -352,6 +505,13 @@
                 card.style.transform = 'translateY(20px)';
                 card.style.transition = 'opacity 0.5s, transform 0.5s';
                 observer.observe(card);
+            });
+            
+            ruleItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(-20px)';
+                item.style.transition = 'opacity 0.5s, transform 0.5s';
+                observer.observe(item);
             });
             
             // Copy realm code to clipboard
@@ -377,4 +537,4 @@
         });
     </script>
 </body>
-                  </html>
+    </html>
